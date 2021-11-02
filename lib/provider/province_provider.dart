@@ -6,7 +6,7 @@ class ProvinceProvider {
 
   static Future<List<ProvinceDao>> all() async {
     List<Map<String, dynamic>> mapResult =
-        await ThailandProvincesDatabase.db.query(TABLE_PROVINCES);
+        await ThailandProvincesDatabase.db!.query(TABLE_PROVINCES);
 
     List<ProvinceDao> listProvinces = mapProvinceList(mapResult);
 
@@ -15,15 +15,15 @@ class ProvinceProvider {
 
   static List<ProvinceDao> mapProvinceList(
       List<Map<String, dynamic>> mapResult) {
-    List<ProvinceDao> listProvinces = List();
+    List<ProvinceDao> listProvinces = [];
     for (Map mapRow in mapResult) {
-      listProvinces.add(ProvinceDao.fromJson(mapRow));
+      listProvinces.add(ProvinceDao.fromJson(mapRow as Map<String, dynamic>));
     }
     return listProvinces;
   }
 
   static Future<List<ProvinceDao>> search({String keyword = ""}) async {
-    List<Map<String, dynamic>> mapResult = await ThailandProvincesDatabase.db
+    List<Map<String, dynamic>> mapResult = await ThailandProvincesDatabase.db!
         .query(TABLE_PROVINCES,
             where: "name_th LIKE ? OR name_en LIKE ?",
             whereArgs: ["%$keyword%", "%$keyword%"]);

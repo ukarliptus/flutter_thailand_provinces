@@ -1,9 +1,9 @@
 class DistrictDao {
-  int id;
-  String zipCode;
-  String nameTh;
-  String nameEn;
-  int amphureId;
+  int? id;
+  String? zipCode;
+  String? nameTh;
+  String? nameEn;
+  int? amphureId;
 
   DistrictDao(
       {this.id, this.zipCode, this.nameTh, this.nameEn, this.amphureId});

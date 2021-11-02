@@ -5,9 +5,9 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
 
 class ThailandProvincesDatabase {
-  static Database db;
+  static Database? db;
 
-  static Future<Database> init() async {
+  static Future<Database?> init() async {
     var databasesPath = await getDatabasesPath();
     var path = p.join(databasesPath, "thailand.db");
 

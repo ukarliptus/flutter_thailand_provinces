@@ -1,9 +1,9 @@
 class ProvinceDao {
-  int id;
-  String code;
-  String nameTh;
-  String nameEn;
-  int geographyId;
+  int? id;
+  String? code;
+  String? nameTh;
+  String? nameEn;
+  int? geographyId;
 
   ProvinceDao({this.id, this.code, this.nameTh, this.nameEn, this.geographyId});
 
