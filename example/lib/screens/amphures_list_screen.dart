@@ -7,21 +7,19 @@ import 'package:flutter_thailand_provinces_example/screens/districts_list_screen
 class AmphuresListScreen extends StatefulWidget {
   final ProvinceDao province;
 
-  AmphuresListScreen({this.province});
+  AmphuresListScreen({required this.province});
 
   @override
   _AmphuresListScreenState createState() => _AmphuresListScreenState();
 }
 
 class _AmphuresListScreenState extends State<AmphuresListScreen> {
-  List<AmphureDao> listAmphure;
-  List<AmphureDao> listAmphureFilter;
+  List<AmphureDao> listAmphure = [];
+  List<AmphureDao> listAmphureFilter = [];
   TextEditingController _searchAmphureController = TextEditingController();
 
   @override
   void initState() {
-    listAmphure = List();
-    listAmphureFilter = List();
     super.initState();
   }
 
@@ -32,7 +30,7 @@ class _AmphuresListScreenState extends State<AmphuresListScreen> {
         centerTitle: true,
         backgroundColor: Colors.green[300],
         elevation: 0,
-        title: Text(widget.province.nameTh),
+        title: Text(widget.province.nameTh ?? ''),
       ),
       body: Column(
         children: <Widget>[
@@ -40,7 +38,8 @@ class _AmphuresListScreenState extends State<AmphuresListScreen> {
           Expanded(
             child: listAmphure.isEmpty
                 ? FutureBuilder(
-                    future: AmphureProvider.all(provinceId: widget.province.id),
+                    future: AmphureProvider.all(
+                        provinceId: widget.province.id ?? 0),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
                         listAmphure = snapshot.data;
@@ -100,14 +99,14 @@ class _AmphuresListScreenState extends State<AmphuresListScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    amphure.nameTh,
+                    amphure.nameTh ?? '',
                     style: TextStyle(fontSize: 18),
                   ),
                   SizedBox(
                     height: 4,
                   ),
                   Text(
-                    amphure.nameEn,
+                    amphure.nameEn ?? '',
                     style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ],
@@ -126,8 +125,7 @@ class _AmphuresListScreenState extends State<AmphuresListScreen> {
     return Container(
       decoration: BoxDecoration(
           color: Colors.green[300],
-          border:
-              Border(bottom: BorderSide(color: Colors.green[400], width: 4))),
+          border: Border(bottom: BorderSide(color: Colors.green, width: 4))),
       padding: EdgeInsets.only(left: 16, right: 16, bottom: 8),
       child: Container(
           padding: EdgeInsets.all(8),
@@ -137,8 +135,8 @@ class _AmphuresListScreenState extends State<AmphuresListScreen> {
             controller: _searchAmphureController,
             decoration: InputDecoration.collapsed(hintText: "อำเภอ.."),
             onChanged: (text) async {
-              List list = await AmphureProvider.searchInProvince(
-                  provinceId: widget.province.id, keyword: text);
+              final list = await AmphureProvider.searchInProvince(
+                  provinceId: widget.province.id ?? 0, keyword: text);
               print("${list.length}");
               setState(() {
                 listAmphureFilter = list;

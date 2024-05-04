@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  ProvinceDao provinceSelected;
+  ProvinceDao? provinceSelected;
 
   @override
   initState() {
@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.white,
                       boxShadow: [
                         BoxShadow(
-                            color: Colors.grey[300],
+                            color: Colors.grey,
                             blurRadius: 80,
                             offset: Offset(0, 10))
                       ]),
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.white,
                       boxShadow: [
                         BoxShadow(
-                            color: Colors.grey[300],
+                            color: Colors.grey,
                             blurRadius: 80,
                             offset: Offset(0, 10))
                       ]),
@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               GestureDetector(
                 onTap: () async {
-                  List list = await ProvinceProvider.all();
+                  final list = await ProvinceProvider.all();
 
                   ProvinceDao province = await ChooseProvinceDialog.show(
                     context,
@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.white,
                       boxShadow: [
                         BoxShadow(
-                            color: Colors.grey[300],
+                            color: Colors.grey,
                             blurRadius: 80,
                             offset: Offset(0, 10))
                       ]),
@@ -148,18 +148,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              provinceSelected == null
-                                  ? "เลือกจังหวัด"
-                                  : provinceSelected.nameTh,
+                              provinceSelected?.nameTh ?? "เลือกจังหวัด",
                               style: TextStyle(fontSize: 20),
                             ),
                             SizedBox(
                               height: 4,
                             ),
                             Text(
-                              provinceSelected == null
-                                  ? ""
-                                  : provinceSelected.nameEn,
+                              provinceSelected?.nameEn ?? "",
                               style:
                                   TextStyle(fontSize: 14, color: Colors.grey),
                             ),

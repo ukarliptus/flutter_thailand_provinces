@@ -6,7 +6,7 @@ import 'package:flutter_thailand_provinces/dao/amphure_dao.dart';
 class DistrictsListScreen extends StatefulWidget {
   final AmphureDao amphure;
 
-  DistrictsListScreen({this.amphure});
+  DistrictsListScreen({required this.amphure});
 
   @override
   _DistrictsListScreenState createState() => _DistrictsListScreenState();
@@ -14,13 +14,11 @@ class DistrictsListScreen extends StatefulWidget {
 
 class _DistrictsListScreenState extends State<DistrictsListScreen> {
   TextEditingController _searchDistrictController = TextEditingController();
-  List<DistrictDao> listDistricts;
-  List<DistrictDao> listDistrictsFilter;
+  List<DistrictDao> listDistricts = [];
+  List<DistrictDao> listDistrictsFilter = [];
 
   @override
   void initState() {
-    listDistricts = List();
-    listDistrictsFilter = List();
     super.initState();
   }
 
@@ -31,14 +29,15 @@ class _DistrictsListScreenState extends State<DistrictsListScreen> {
           centerTitle: true,
           backgroundColor: Colors.red[300],
           elevation: 0,
-          title: Text(widget.amphure.nameTh),
+          title: Text(widget.amphure.nameTh ?? ''),
         ),
         body: Column(children: [
           buildSearchContainer(),
           Expanded(
             child: listDistricts.isEmpty
                 ? FutureBuilder(
-                    future: DistrictProvider.all(amphureId: widget.amphure.id),
+                    future:
+                        DistrictProvider.all(amphureId: widget.amphure.id ?? 0),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
                         listDistricts = snapshot.data;
@@ -87,14 +86,14 @@ class _DistrictsListScreenState extends State<DistrictsListScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    district.nameTh,
+                    district.nameTh ?? '',
                     style: TextStyle(fontSize: 18),
                   ),
                   SizedBox(
                     height: 4,
                   ),
                   Text(
-                    district.nameEn,
+                    district.nameEn ?? '',
                     style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ],
@@ -113,7 +112,7 @@ class _DistrictsListScreenState extends State<DistrictsListScreen> {
     return Container(
       decoration: BoxDecoration(
           color: Colors.red[300],
-          border: Border(bottom: BorderSide(color: Colors.red[400], width: 4))),
+          border: Border(bottom: BorderSide(color: Colors.red, width: 4))),
       padding: EdgeInsets.only(left: 16, right: 16, bottom: 8),
       child: Container(
           padding: EdgeInsets.all(8),
@@ -123,8 +122,8 @@ class _DistrictsListScreenState extends State<DistrictsListScreen> {
             controller: _searchDistrictController,
             decoration: InputDecoration.collapsed(hintText: "ตำบล.."),
             onChanged: (text) async {
-              List list = await DistrictProvider.searchInAmphure(
-                  amphureId: widget.amphure.id, keyword: text);
+              final list = await DistrictProvider.searchInAmphure(
+                  amphureId: widget.amphure.id ?? 0, keyword: text);
               print("${list.length}");
               setState(() {
                 listDistrictsFilter = list;

@@ -11,14 +11,14 @@ class ProvincesListScreen extends StatefulWidget {
 }
 
 class _ProvincesListScreenState extends State<ProvincesListScreen> {
-  List<ProvinceDao> listProvinces;
-  List<ProvinceDao> listProvincesFilter;
+  late List<ProvinceDao> listProvinces;
+  late List<ProvinceDao> listProvincesFilter;
   TextEditingController _searchProvinceController = TextEditingController();
 
   @override
   void initState() {
-    listProvinces = List();
-    listProvincesFilter = List();
+    listProvinces = [];
+    listProvincesFilter = [];
     super.initState();
   }
 
@@ -97,14 +97,14 @@ class _ProvincesListScreenState extends State<ProvincesListScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    province.nameTh,
+                    province.nameTh ?? '',
                     style: TextStyle(fontSize: 18),
                   ),
                   SizedBox(
                     height: 4,
                   ),
                   Text(
-                    province.nameEn,
+                    province.nameEn ?? '',
                     style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ],
@@ -123,8 +123,7 @@ class _ProvincesListScreenState extends State<ProvincesListScreen> {
     return Container(
       decoration: BoxDecoration(
           color: Colors.blue,
-          border:
-              Border(bottom: BorderSide(color: Colors.blue[600], width: 4))),
+          border: Border(bottom: BorderSide(color: Colors.blue, width: 4))),
       padding: EdgeInsets.only(left: 16, right: 16, bottom: 8),
       child: Container(
           padding: EdgeInsets.all(8),
@@ -134,7 +133,7 @@ class _ProvincesListScreenState extends State<ProvincesListScreen> {
             controller: _searchProvinceController,
             decoration: InputDecoration.collapsed(hintText: "จังหวัด.."),
             onChanged: (text) async {
-              List list = await ProvinceProvider.search(keyword: text);
+              final list = await ProvinceProvider.search(keyword: text);
               setState(() {
                 listProvincesFilter = list;
               });

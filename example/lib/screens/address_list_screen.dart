@@ -13,13 +13,12 @@ class AddressListScreen extends StatefulWidget {
 }
 
 class _AddressListScreenState extends State<AddressListScreen> {
-  List<AddressDao> listAddresses;
+  List<AddressDao> listAddresses = [];
   TextEditingController _searchAddressController = TextEditingController();
   String keyword = "";
 
   @override
   void initState() {
-    listAddresses = List();
     super.initState();
   }
 
@@ -91,40 +90,44 @@ class _AddressListScreenState extends State<AddressListScreen> {
                   Row(
                     children: <Widget>[
                       Text(
-                        address.district.nameTh,
+                        address.district?.nameTh ?? '',
                         style: TextStyle(
                             fontSize: 18,
-                            color: getColorHighlight(address.district.nameTh)),
+                            color: getColorHighlight(
+                                address.district?.nameTh ?? '')),
                       ),
                       SizedBox(
                         width: 6,
                       ),
                       Text(
-                        ", " + address.amphure.nameTh,
+                        ", " + address.amphure!.nameTh!,
                         style: TextStyle(
                             fontSize: 18,
-                            color: getColorHighlight(address.amphure.nameTh)),
+                            color: getColorHighlight(address.amphure!.nameTh!)),
                       ),
                       SizedBox(
                         width: 6,
                       ),
                       Text(
-                        address.district.zipCode == "0"
+                        address.district?.zipCode == "0"
                             ? ""
-                            : address.district.zipCode,
+                            : address.district?.zipCode ?? "",
                         style: TextStyle(
-                            fontSize: 18,
-                            color: getColorHighlight(address.district.zipCode)),
-                      ),
+                          fontSize: 18,
+                          color: getColorHighlight(
+                              address.district?.zipCode ?? ""),
+                        ),
+                      )
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Text(
-                        address.province.nameTh,
+                        address.province?.nameTh ?? '',
                         style: TextStyle(
                             fontSize: 14,
-                            color: getColorHighlight(address.province.nameTh)),
+                            color: getColorHighlight(
+                                address.province?.nameTh ?? '')),
                       ),
                     ],
                   ),
@@ -134,29 +137,32 @@ class _AddressListScreenState extends State<AddressListScreen> {
                   Row(
                     children: <Widget>[
                       Text(
-                        address.district.nameEn,
+                        address.district?.nameEn ?? '',
                         style: TextStyle(
                             fontSize: 14,
-                            color: getColorHighlight(address.district.nameEn)),
+                            color: getColorHighlight(
+                                address.district?.nameEn ?? '')),
                       ),
                       SizedBox(
                         width: 6,
                       ),
                       Text(
-                        ", " + address.amphure.nameEn,
+                        ", " + address.amphure!.nameEn!,
                         style: TextStyle(
                             fontSize: 14,
-                            color: getColorHighlight(address.amphure.nameEn)),
+                            color: getColorHighlight(
+                                address.amphure?.nameEn ?? '')),
                       ),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Text(
-                        address.province.nameEn,
+                        address.province?.nameEn ?? '',
                         style: TextStyle(
                             fontSize: 14,
-                            color: getColorHighlight(address.province.nameEn)),
+                            color: getColorHighlight(
+                                address.province?.nameEn ?? '')),
                       ),
                     ],
                   ),
@@ -174,12 +180,12 @@ class _AddressListScreenState extends State<AddressListScreen> {
 
   Color getColorHighlight(String text) {
     if (keyword.isEmpty) {
-      return Colors.grey[700];
+      return Colors.grey;
     } else {
       if (text.toLowerCase().contains(keyword.toLowerCase())) {
-        return Colors.red[400];
+        return Colors.red;
       }
-      return Colors.grey[400];
+      return Colors.grey;
     }
   }
 
@@ -188,7 +194,7 @@ class _AddressListScreenState extends State<AddressListScreen> {
       decoration: BoxDecoration(
           color: Colors.teal[300],
           border:
-              Border(bottom: BorderSide(color: Colors.teal[400], width: 4))),
+              Border(bottom: BorderSide(color: Colors.teal[400]!, width: 4))),
       padding: EdgeInsets.only(left: 16, right: 16, bottom: 8),
       child: Container(
           padding: EdgeInsets.all(8),
