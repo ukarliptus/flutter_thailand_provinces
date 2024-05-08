@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_thailand_provinces/provider/province_provider.dart';
-import 'package:flutter_thailand_provinces/dao/province_dao.dart';
+import 'package:flutter_thailand_provinces/flutter_thailand_provinces.dart';
 import 'package:flutter_thailand_provinces_example/screens/amphures_list_screen.dart';
 
 class ProvincesListScreen extends StatefulWidget {
@@ -11,15 +10,22 @@ class ProvincesListScreen extends StatefulWidget {
 }
 
 class _ProvincesListScreenState extends State<ProvincesListScreen> {
-  late List<ProvinceDao> listProvinces;
-  late List<ProvinceDao> listProvincesFilter;
+  List<ProvinceDao> listProvinces = [];
+  List<ProvinceDao> listProvincesFilter = [];
   TextEditingController _searchProvinceController = TextEditingController();
+
+  Future<void> _init() async {
+    final provinces = await ProvinceProvider.all();
+    setState(() {
+      listProvinces = provinces;
+      listProvincesFilter = provinces;
+    });
+  }
 
   @override
   void initState() {
-    listProvinces = [];
-    listProvincesFilter = [];
     super.initState();
+    _init();
   }
 
   @override

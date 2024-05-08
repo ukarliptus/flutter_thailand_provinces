@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_thailand_provinces_example/screens/address_list_screen.dart';
 import 'package:flutter_thailand_provinces_example/screens/provinces_list_screen.dart';
-import 'package:flutter_thailand_provinces/provider/province_provider.dart';
-import 'package:flutter_thailand_provinces/dialog/choose_province_dialog.dart';
-import 'package:flutter_thailand_provinces/dao/province_dao.dart';
+import 'package:flutter_thailand_provinces/flutter_thailand_provinces.dart';
+import 'package:flutter_thailand_provinces_example/widgets/search_address_bottom_sheet.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen();
@@ -15,9 +15,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   ProvinceDao? provinceSelected;
 
+  final TextEditingController _controller = TextEditingController();
+
   @override
   initState() {
     super.initState();
+  }
+
+  void _onTapSearchAddress() async {
+    final result = await showBarModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SearchAddressBottomSheet();
+      },
+    );
   }
 
   @override
@@ -111,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () async {
                   final list = await ProvinceProvider.all();
 
-                  ProvinceDao province = await ChooseProvinceDialog.show(
+                  ProvinceDao? province = await ChooseProvinceDialog.show(
                     context,
                     listProvinces: list,
                     colorBackgroundHeader: Colors.purple[300],
@@ -170,6 +181,29 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 8,
+              ),
+              TextField(
+                controller: _controller,
+                maxLines: 4,
+                onTap: _onTapSearchAddress,
+                readOnly: true,
+                decoration: InputDecoration(
+                  hintText: 'Province \nAmhure \nDistrict \nZipCode',
+                  fillColor: Colors.white,
+                  filled: true,
+                  hintMaxLines: 4,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16)),
+                ),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              // ElevatedButton(
+              //     onPressed: _onTapSearchAddress,
+              //     child: Text('Show Search Address')),
             ],
           ),
         ));

@@ -1,5 +1,5 @@
-import 'package:flutter_thailand_provinces/dao/amphure_dao.dart';
 import 'package:flutter_thailand_provinces/flutter_thailand_provinces.dart';
+import 'package:flutter_thailand_provinces/src/dao/index.dart';
 
 class AmphureProvider {
   static const String TABLE_AMPHURES = "amphures";

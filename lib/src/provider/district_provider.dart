@@ -1,5 +1,5 @@
-import 'package:flutter_thailand_provinces/dao/district_dao.dart';
 import 'package:flutter_thailand_provinces/flutter_thailand_provinces.dart';
+import 'package:flutter_thailand_provinces/src/dao/index.dart';
 
 class DistrictProvider {
   static const String TABLE_DISTRICT = "districts";

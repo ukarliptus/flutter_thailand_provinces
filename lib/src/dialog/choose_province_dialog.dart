@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_thailand_provinces/dao/province_dao.dart';
+import 'package:flutter_thailand_provinces/src/dao/province_dao.dart';
 
 class ChooseProvinceDialog extends StatefulWidget {
   final List<ProvinceDao>? listProvinces;

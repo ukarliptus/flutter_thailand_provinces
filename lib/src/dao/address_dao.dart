@@ -1,6 +1,6 @@
-import 'package:flutter_thailand_provinces/dao/amphure_dao.dart';
-import 'package:flutter_thailand_provinces/dao/district_dao.dart';
-import 'package:flutter_thailand_provinces/dao/province_dao.dart';
+import 'package:flutter_thailand_provinces/src/dao/amphure_dao.dart';
+import 'package:flutter_thailand_provinces/src/dao/district_dao.dart';
+import 'package:flutter_thailand_provinces/src/dao/province_dao.dart';
 
 class AddressDao {
   ProvinceDao? province;

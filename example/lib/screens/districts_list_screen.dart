@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_thailand_provinces/provider/district_provider.dart';
-import 'package:flutter_thailand_provinces/dao/district_dao.dart';
-import 'package:flutter_thailand_provinces/dao/amphure_dao.dart';
+import 'package:flutter_thailand_provinces/flutter_thailand_provinces.dart';
 
 class DistrictsListScreen extends StatefulWidget {
   final AmphureDao amphure;
@@ -74,7 +72,9 @@ class _DistrictsListScreenState extends State<DistrictsListScreen> {
 
   Widget buildRowDistricts(DistrictDao district) {
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          print(district.zipCode);
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

@@ -1,11 +1,8 @@
-import 'package:flutter_thailand_provinces/dao/address_dao.dart';
-import 'package:flutter_thailand_provinces/dao/province_dao.dart';
-import 'package:flutter_thailand_provinces/dao/amphure_dao.dart';
-import 'package:flutter_thailand_provinces/dao/district_dao.dart';
 import 'package:flutter_thailand_provinces/flutter_thailand_provinces.dart';
-import 'package:flutter_thailand_provinces/provider/province_provider.dart';
-import 'package:flutter_thailand_provinces/provider/amphure_provider.dart';
-import 'package:flutter_thailand_provinces/provider/district_provider.dart';
+import 'package:flutter_thailand_provinces/src/dao/index.dart';
+import 'package:flutter_thailand_provinces/src/provider/index.dart';
+
+import 'province_provider.dart';
 
 class AddressProvider {
   static const String _BASE_SQL = ""

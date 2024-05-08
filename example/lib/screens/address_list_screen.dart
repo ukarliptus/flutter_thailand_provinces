@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_thailand_provinces/provider/address_provider.dart';
-import 'package:flutter_thailand_provinces/dao/address_dao.dart';
-import 'package:flutter_thailand_provinces/dao/amphure_dao.dart';
-import 'package:flutter_thailand_provinces/dao/province_dao.dart';
-import 'package:flutter_thailand_provinces_example/screens/districts_list_screen.dart';
+import 'package:flutter_thailand_provinces/flutter_thailand_provinces.dart';
 
 class AddressListScreen extends StatefulWidget {
   AddressListScreen();
