@@ -66,7 +66,7 @@ class _ProvinceListState extends State<ProvinceList> {
           stickyHeaderBackgroundColor: Theme.of(context).primaryColorLight,
         ),
         Align(
-          alignment: Alignment.centerRight,
+          alignment: Alignment.topRight,
           child: Container(
             child: SingleChildScrollView(
               primary: false,

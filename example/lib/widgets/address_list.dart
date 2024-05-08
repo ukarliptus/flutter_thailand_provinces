@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_thailand_provinces/flutter_thailand_provinces.dart';
 import 'package:sticky_grouped_list/sticky_grouped_list.dart';
 
-class ZipCodeList extends StatefulWidget {
-  final DistrictDao? district;
-  final Function(String)? onSelected;
-  const ZipCodeList({Key? key, this.district, this.onSelected})
+class AddressList extends StatefulWidget {
+  final List<AddressDao>? addressList;
+  final Function(AddressDao)? onSelected;
+  const AddressList({Key? key, this.addressList, this.onSelected})
       : super(key: key);
 
   @override
-  _ZipCodeListState createState() => _ZipCodeListState();
+  _AddressListState createState() => _AddressListState();
 }
 
-class _ZipCodeListState extends State<ZipCodeList> {
-  List<String> list = [];
-  List<String> filterList = [];
+class _AddressListState extends State<AddressList> {
+  List<String> alphabet = [];
+
+  final _selectedIndexNotifier = ValueNotifier<int>(0);
 
   final GroupedItemScrollController itemScrollController =
       GroupedItemScrollController();
@@ -25,11 +26,24 @@ class _ZipCodeListState extends State<ZipCodeList> {
     _init();
   }
 
+  @override
+  void didUpdateWidget(covariant AddressList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // if (oldWidget.province != widget.province) {
+    //   _init();
+    // }
+    print('didUpdateWidget');
+  }
+
   Future<void> _init() async {
-    setState(() {
-      this.list = [widget.district?.zipCode ?? ''];
-      filterList = [widget.district?.zipCode ?? ''];
-    });
+    // print('init ampure: ${widget.province?.nameEn}');
+    // final list =
+    //     await AmphureProvider.all(provinceId: widget.province?.id ?? 0);
+    // setState(() {
+    //   this.list = list;
+    //   filterList = list;
+    //   alphabet = list.map((e) => e.nameEn![0].toUpperCase()).toSet().toList();
+    // });
   }
 
   @override
@@ -37,20 +51,20 @@ class _ZipCodeListState extends State<ZipCodeList> {
     return Stack(
       children: [
         ListView.builder(
-            itemCount: filterList.length,
+            itemCount: widget.addressList!.length,
             itemBuilder: (context, index) {
+              final address = widget.addressList![index];
               return ListTile(
-                title: Text(filterList[index]),
+                title: Text('${address}'),
                 onTap: () {
-                  widget.onSelected!(list[index]);
+                  widget.onSelected?.call(address);
                 },
               );
             }),
-
-        // StickyGroupedListView<String, String>(
+        // StickyGroupedListView<AddressDao, String>(
         //   itemScrollController: itemScrollController,
         //   padding: EdgeInsets.all(16),
-        //   elements: filterList,
+        //   elements: widget.addressList!,
         //   groupBy: (element) => element.nameEn![0].toUpperCase(),
         //   groupSeparatorBuilder: (element) => Padding(
         //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -59,11 +73,11 @@ class _ZipCodeListState extends State<ZipCodeList> {
         //       style: Theme.of(context).textTheme.titleMedium,
         //     ),
         //   ),
-        //   itemBuilder: (context, DistrictDao element) => ListTile(
+        //   itemBuilder: (context, AmphureDao element) => ListTile(
         //     contentPadding: EdgeInsets.zero,
         //     title: Text(element.nameEn ?? ''),
         //     onTap: () {
-        //       widget.onSelected!(element);
+        //       // widget.onSelected!(element);
         //     },
         //   ),
         //   itemComparator: (item1, item2) =>
@@ -73,7 +87,7 @@ class _ZipCodeListState extends State<ZipCodeList> {
         //   stickyHeaderBackgroundColor: Theme.of(context).primaryColorLight,
         // ),
         // Align(
-        //   alignment: Alignment.centerRight,
+        //   alignment: Alignment.topRight,
         //   child: Container(
         //     child: SingleChildScrollView(
         //       primary: false,

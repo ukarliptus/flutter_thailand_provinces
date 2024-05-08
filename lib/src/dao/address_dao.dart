@@ -16,4 +16,9 @@ class AddressDao {
       "district": this.district!.toJson(),
     };
   }
+
+  @override
+  String toString() {
+    return '${district!.nameEn}, ${amphure!.nameEn}, ${province!.nameEn} ${district!.zipCode}';
+  }
 }

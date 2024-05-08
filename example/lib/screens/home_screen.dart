@@ -23,12 +23,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onTapSearchAddress() async {
-    final result = await showBarModalBottomSheet(
+    final result = await showBarModalBottomSheet<Address>(
       context: context,
       builder: (context) {
         return SearchAddressBottomSheet();
       },
     );
+
+    if (result != null) {
+      _controller.text = result.address;
+    }
   }
 
   @override
