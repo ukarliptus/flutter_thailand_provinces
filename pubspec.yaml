@@ -1,6 +1,6 @@
 name: flutter_thailand_provinces
 description: The package for creating a database of provinces, districts and sub-districts of Thailand with basic information such as Thai names, English names and postal numbers. For use in a Flutter.
-version: 1.0.2
+version: 1.1.0
 homepage: https://github.com/benznest/flutter_thailand_provinces
 publish_to: "none"
 
